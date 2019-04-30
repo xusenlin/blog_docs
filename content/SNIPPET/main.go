@@ -75,7 +75,7 @@ func main() {
 
 	vue,_ := ioutil.ReadFile("./template/Index.vue")
 	newVue := strings.ReplaceAll(string(vue),"keyword",Keyword)
-	_ = ioutil.WriteFile(targetDir+"/Index.vue",[]byte(newVue),os.ModePerm)
+	_ = ioutil.WriteFile(targetDir + "/Index.vue",[]byte(newVue),os.ModePerm)
 
 	pageMixin,_ := ioutil.ReadFile("./template/mixin/page.js")
 	//strings.ReplaceAll(string(vue),"keyword",Keyword)
