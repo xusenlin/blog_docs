@@ -3,7 +3,7 @@
 > ForestBlog 是基于 go 语言开发的，无第三方依赖的，用来展示 markdown 文档的博客。
 
 
-示例： [xusenlin.com](https://xusenlin.com) （个人博客，正在使用）
+示例： [xusenlin.com](http://xusenlin.com) （个人博客，正在使用）
 
 源码： [github.com/xusenlin/ForestBlog](https://github.com/xusenlin/ForestBlog)
 
