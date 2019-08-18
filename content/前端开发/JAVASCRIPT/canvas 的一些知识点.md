@@ -1,6 +1,16 @@
+```json
+{
+  "date": "2019.08.01 22:00",
+  "tags": ["CANVAS"]
+}
+```
+
+
+
 在此之前，有一点需要特别注意，即canvas的width和height属性与canvas的style.width和style.height是两个完全不同的概念，
 canvas的width和height属性表示的是画布的宽度和高度（默认300像素×150像素），画布的坐标轴也是对应这个属性的，而canvas的style.width和style.height是canvas在网页展示的大小。
 同时，我们绘制的一些图在高分屏的手机上显示会非常模糊，我们可以使用两倍像素来绘制，然后用一倍像素展示出来，即：
+
 ```
 <canvas style="width: 123px;height: 123px" height="246" width="246"></canvas>
 ```
@@ -45,10 +55,10 @@ context.stroke();//通过线条来绘制图形轮廓。
 context.fill();//通过填充路径的内容区域生成实心的图形。
 context.restore();//恢复之前的保存状态，可以让下面的绘制不受刚才的设置影响，如果save是getContext("2d")之后保存的，那么restore()就是初始化设置状态。
 ```
-  
+
 上面可以看出save和restore可以保证样式属性只运用于该段canvas元素。
 我们直接使用context.arc()函数来绘制圆型路径。如果要绘制不规则路径，可以使用下面函数
-  
+
 beginPath()//新建一条路径，生成之后，图形绘制命令被指向到路径上生成路径。
 ctx.moveTo(0,0);//定义线条开始坐标
 ctx.lineTo(200,100);//定义线条结束坐标
