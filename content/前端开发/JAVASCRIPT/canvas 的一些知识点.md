@@ -11,20 +11,20 @@
 canvas的width和height属性表示的是画布的宽度和高度（默认300像素×150像素），画布的坐标轴也是对应这个属性的，而canvas的style.width和style.height是canvas在网页展示的大小。
 同时，我们绘制的一些图在高分屏的手机上显示会非常模糊，我们可以使用两倍像素来绘制，然后用一倍像素展示出来，即：
 
-```
+```javascript
 <canvas style="width: 123px;height: 123px" height="246" width="246"></canvas>
 ```
 
 canvas只支持矩形一种原生的图形绘制,所有其他的图形的绘制都至少需要生成一条路径。canvas提供了三种方法绘制矩形：
-```
+```javascript
 fillRect(x, y, width, height)
 ```
 绘制一个填充的矩形
-```
+```javascript
 strokeRect(x, y, width, height)
 ```
 绘制一个矩形的边框
-```
+```javascript
 clearRect(x, y, width, height)
 ```
 清除指定矩形区域，让清除部分完全透明,以上的三个函数绘制之后会马上显现在canvas上，即时生效。
@@ -41,7 +41,7 @@ clearRect(x, y, width, height)
 4. 一旦路径生成，你就能通过描边或填充路径区域来渲染图形。
   
   
-```
+```javascript
 context.save(); //保存当前上下文环境，比如当前设置了各种状态(画笔颜色，画笔粗细等等)，然后可以通过context.restore()恢复到当前设置
 context.fillStyle = '#aa0';
 context.strokeStyle = '#f00';
@@ -68,7 +68,7 @@ closePath()//闭合路径之后图形绘制命令又重新指向到上下文中�
 
 来实现一下这个进度圆
 
-```
+```javascript
 
 const startAngle = 0.65;
 const endAngle = 0.35;
