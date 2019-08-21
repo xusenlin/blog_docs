@@ -1,3 +1,14 @@
+```json
+{
+  "date": "2019.07.04 15:00",
+  "tags": ["VUE","总结"]
+}
+```
+
+
+
+
+
 使用自己开源的ElementUiAdmin做了很多管理后台系统，总结一些非常棒的地方。当然，一个成熟的后台管理系统不只是这些。
 
 
@@ -12,7 +23,7 @@
 ![ElementUiAdmin](http://xusenlin.com/assets/ElementUIAdmin/ElementUiAdmin.png)
 
 在此之前，我们有一些常用的工具函数
-```
+```javascript
 export function fillerLeft(obj,row = {}) {
 
     for (let key in obj) {
@@ -46,7 +57,7 @@ export function resetArgs(args,def = {}) {
 
 来看看其中生成的mixin文件，他被命名为page.js，负责分页相关的数据和方法。
 
-```
+```javascript
 import {listPage} from '@/api/studyService/evaluation.js'
 import {resetArgs} from '@/utils/index.js'
 import {cloneDeep} from 'lodash'
@@ -88,7 +99,7 @@ export default {
 
 requestFunc是一个AxiosPromise请求函数，会被配置到分页组件上。searchParams是这个分页相关的请求参数，也会被配置到分页组件上，但是我们不会去关心pageSize、pageNum、total这些参数，因为在请求的时候分页组件会自动为我们带上，请求回来会自动为我们设置total。tableData就是表格的数据，他的值是通过分页组件触发returnData函数得到的。clearSearchParams函数是绑定到重置按钮上的，当然，有时候重置的时候我们并不希望重置所有的参数，可以通过resetArgs函数的第二个参数来设置默认值，比如，这个分页api希望我们永远带上一个id去访问，我们可以这样
 
-```
+```javascript
  resetArgs(this.searchParams,{id:55});
 ```
 重置参数之后我们需要调一下分页组件的刷新方法来获取数据，refresh()除了刷新还被绑定到了查询按钮上。触发一次都会使用当前参数请求回来之后触发我们的returnData函数。
@@ -103,7 +114,7 @@ filterParams函数也是分配在组件上，用来过滤我们的参数，一�
 ### 全局字典设计
 
 在一个完整的后台管理系统中，肯定避免不了很多地方使用字典，即下拉选项，它可能出现在任何一个页面上，我们难道要每个地方都去导入Api请求赋值吗？很显然我们需要一个全局的函数initKeyMap，它被定义在utils目录。
-```
+```javascript
 export function initKeyMap(keyObj) {
 
     if(Object.keys(keyObj).length != 0){
@@ -116,7 +127,7 @@ export function initKeyMap(keyObj) {
 ```
 getKeyMap函数被定义在Api目录，他返回的是一个AxiosPromise。我们把此函数挂载到vue原型上之后就可以随意使用
 
-```
+```javascript
 data() {
     return {
         keyMap:{
@@ -137,7 +148,7 @@ created() {
 
 
 
-```
+```javascript
 var ApiList = document.querySelectorAll('.opblock-summary');
 
 var ApiStr = `
@@ -202,7 +213,7 @@ console.warn('==================================================================
 我们后台的api文档使用的是swagger-ui ，将上面的代码复制粘贴到swagger-ui页面的控制台，就会为我们打印出一个个模块的api代码。像下面这样
 
 
-```
+```javascript
 import request from '@/utils/request.js'
 import {gatewayPrefix} from './config.js'
 
@@ -248,7 +259,7 @@ export function detail(params) {
 系统有很多填写的字段需要验证，这些规则如果都去一条一条的写，那无疑是一大块一大块的代码块，非常繁琐。我们可以把公共的验证放到一起
 
 
-```
+```javascript
 
 export const RegPhone = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/;
 
@@ -299,7 +310,7 @@ export function FillerRieldRules(fields = [],obj) {
 ```
 
 使用
-```
+```javascript
 import {Required,RequiredAndNumber,RequiredAndDate,RequiredAndArray,FillerRieldRules,RequiredAndPhone} from '@/utils/commonValidateRules.js'
 import {Float2,RequiredAndFloat2} from '@/utils/commonValidateRules.js'
 rules: {

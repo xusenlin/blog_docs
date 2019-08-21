@@ -1,4 +1,13 @@
-# ForestBlog
+```json
+{
+  "date": "2019.05.04 18:00",
+  "tags": ["BLOG"]
+}
+```
+
+
+
+# ForestBlog V1.0
 
 > ForestBlog 是基于 go 语言开发的，无第三方依赖的，用来展示 markdown 文档的博客。
 
@@ -7,7 +16,7 @@
 
 源码： [github.com/xusenlin/ForestBlog](https://github.com/xusenlin/ForestBlog)
 
---- 
+---
 
 - 请将你的博客文档克隆到ForestBlog的resources下，ForestBlog会3个小时自动根据app.json的documentPath key切换到你的博客目录下执行git pull 命令来更新你的文章。所以正确配置documentPath指向你的博客文档很关键。
 
