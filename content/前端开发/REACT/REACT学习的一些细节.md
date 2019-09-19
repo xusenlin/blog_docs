@@ -28,6 +28,23 @@ React 却不是这样，展示内容的 JSX、定义行为的 JavaScript 代码�
 然后根据功能点划分模块，让不同的组件去实现不同的功能，这个功夫还在开发者身上，不过，React 组件的对外接口非常规范，方便开发者设计低耦合的系统。
 
 
+#### 关于setState()
+
+使用setState()更新State可能是异步的，出于性能考虑，React 可能会把多个 setState() 调用合并成一个调用。
+因为 this.props 和 this.state 可能会异步更新，所以你不要依赖他们的值来更新下一个状态。即：调用了setState()之后，不要以为State更新了，马上用它来参与计算。
+
+
+#### 某些情况没必要使用state
+
+即react哲学的第三步，确定 UI state 的最小（且完整）表示
+
+DRY: Don’t Repeat Yourself 
+
+- 该数据可以由父组件通过 props 传递而来的
+- 该数据随时间的推移而保持不变（可以直接定义在this上，像setInterval的标识）
+- 该数据可以根据其他 state 或 props 计算出的值
+
+
 
 ####  组件的生命周期
 
@@ -43,7 +60,7 @@ React 却不是这样，展示内容的 JSX、定义行为的 JavaScript 代码�
    - shouldComponentUpdate 
    - componentWillUpdate 
    - render 
-   -  componentDidUpdate
+   - componentDidUpdate
 - 卸载过程（Unmount），组件从 DOM 中删除的过程。
    - componentWillUnmount
 
