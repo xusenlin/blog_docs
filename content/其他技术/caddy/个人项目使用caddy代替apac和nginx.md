@@ -51,6 +51,8 @@ $ caddy start
 	[--adapter <name>]
 ```
 
+
+
 2. 启动caddy,在“守护程序”模式下运行Caddy
 
 ```
