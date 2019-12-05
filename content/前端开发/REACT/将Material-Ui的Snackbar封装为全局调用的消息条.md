@@ -54,13 +54,13 @@ export default {
     info(content, duration= 2000) {
         return notice('info', content, duration)
     },
-    success(content, duration) {
+    success(content, duration= 2000) {
         return notice('success', content, duration)
     },
-    warning(content, duration) {
+    warning(content, duration= 2000) {
         return notice('warning', content, duration)
     },
-    error(content, duration) {
+    error(content, duration= 2000) {
         return notice('error', content, duration)
     },
 }
