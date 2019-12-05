@@ -2,14 +2,14 @@
 {
   "date": "2019.12.04 22:00",
   "tags": ["REACT","Material-Ui"],
-  "description":"最近在使用 React 的 Material-Ui 库开发一个前端部署工具，发现 Material-Ui 的 Snackbar 组件不能像 Element UI 的 Notification 那样通过 this.$notify 全局调用，这样在使用Axios请求统一拦截通知就不那么方便了,那么我们来实现一下诸如 Snackbar.error()、Snackbar.warning()、Snackbar.success()"
+  "description":"最近在使用 React 的 Material-Ui 库开发一个前端部署工具，发现 Material-Ui 的 Snackbar 组件不能像 Element UI 的 Notification 那样通过 this.$notify 全局调用，这样在使用Axios请求统一拦截通知就不那么方便了,那么我们来实现一下诸如 Snackbar.error()、Snackbar.warning()、Snackbar.success()的方法"
 }
 ```
 
 
 ### 实现效果
 
-```
+```javascript
 Snackbar.error("This is an error message!");
 Snackbar.warning("This is a warning message!");
 Snackbar.info("This is an information message!");
@@ -41,7 +41,7 @@ Snackbar.success("This is a success message!");
 
 1. index.js 是对外的入口，主要提供相应的方法
 
-```
+```javascript
 import snackbar from './snackbarInstance'
 
 let snackbarInstance;
@@ -69,7 +69,7 @@ export default {
 
 2. snackbarInstance.js 主要负责渲染组件实例并返回实列对象
 
-```
+```javascript
 import React from "react";
 import ReactDOM from "react-dom";
 import Snackbar from './snackbar'
@@ -82,7 +82,7 @@ export default ReactDOM.render(<Snackbar/>, snackbarDom)
 
 3. snackbar.js  snackbar组件，并提供了关键的openSnackbar方法供外部调用
 
-```
+```javascript
 import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContentWrapper from './snackbarContentWrapper'
@@ -139,7 +139,7 @@ export default CustomizeSnackbar
 
 4. snackbarContentWrapper.js 就是snackbar具体实现的细节了，提供了不同类型的消息条和不同的图标。
 
-```
+```javascript
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
