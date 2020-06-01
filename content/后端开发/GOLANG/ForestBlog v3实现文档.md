@@ -33,7 +33,9 @@ func init() {
 - 加载 html 模板，为了代码美观并添加相应的方法。
 - 递归加载 content 里面的所有文章并解析，通过 date 排序
 
-最后一步比较重要，里面涉及到了短链算法，具体查看http://xusenlin.com/article?key=tMB5e2，同时为了快速找到文章添加了变量 ArticleShortUrlMap ，用来保证文章 shortUrl 唯一和快速定位文章，shortUrl 是使用文章标题来生成的，除了使用摘要算法会有一定几率key重复外，文章标题一样也会重复，所以用 ArticleShortUrlMap 来保证 key 的唯一性，那么这里为什么不使用路径加文章名来生成 key 呢？？这样就不会重复了啊。但是这样的话，如果有一天你调整了分类，那么以前的 url 在也定位不了当初那篇文章了，只使用标题来生成 key 的话，只要文章标题不修改，随便你怎么玩。
+最后一步比较重要，里面涉及到了短链算法，具体查看http://xusenlin.com/article?key=tMB5e2
+
+同时为了快速找到文章添加了变量 ArticleShortUrlMap ，用来保证文章 shortUrl 唯一和快速定位文章，shortUrl 是使用文章标题来生成的，除了使用摘要算法会有一定几率key重复外，文章标题一样也会重复，所以用 ArticleShortUrlMap 来保证 key 的唯一性，那么这里为什么不使用路径加文章名来生成 key 呢？？这样就不会重复了啊。但是这样的话，如果有一天你调整了分类，那么以前的 url 在也定位不了当初那篇文章了，只使用标题来生成 key 的话，只要文章标题不修改，随便你怎么玩。
 
 ```go
 sort.Sort(articles)
