@@ -96,13 +96,11 @@ const buildReleaseApiUrl = 'https://hsjapidev.xxx.com';//打包预发布环境
 const buildProApiUrl = 'https://hsjapi.xxx.com';//打包正式环境
 
 
-let useApiUrl,
+let useApiUrl = devApiUrl,
+    isRelease = false, //是否是线上发布版本
     nodeEnv = process.env.NODE_ENV,
     appMode = process.env.REACT_APP_MODE;
 
-if('development' === nodeEnv){
-    useApiUrl = devApiUrl;
-}
 
 if('production' === nodeEnv){
     switch (appMode) {
@@ -119,12 +117,13 @@ if('production' === nodeEnv){
             useApiUrl = buildReleaseApiUrl;
             break;
         default:
+            isRelease = true;
             useApiUrl = buildProApiUrl;
             break;
     }
 }
 
-export default useApiUrl;
+export { useApiUrl,isRelease }; 
 
 
 ```
