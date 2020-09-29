@@ -79,7 +79,7 @@ export function isInViewPort(element) {
 ```
 关于getBoundingClientRect()我画了一张图。
 
-![getBoundingClientRect](./images/getBoundingClientRect.svg)
+![getBoundingClientRect](./images/getBoundingClientRect.png)
 
 大功告成，但是你会发现在ios全屏横屏的时候一点播放2秒钟就暂停了，全屏横屏的是时候，一个video就已经超出可视区域了，我们添加一下判断就好。
 
