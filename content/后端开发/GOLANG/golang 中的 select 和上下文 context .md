@@ -79,7 +79,6 @@ func SayHello(writer http.ResponseWriter, request *http.Request)  {
     fmt.Println(&request)
     writer.Write([]byte("Hi"))
 }
-
 //========================================================
 //$ curl http://localhost:8080/
 //0xc0000b8030
