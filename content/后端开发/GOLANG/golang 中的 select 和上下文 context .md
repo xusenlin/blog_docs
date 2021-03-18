@@ -132,3 +132,46 @@ handle context deadline exceeded
 ```
 但是有一定几率只看到第一条，因为主goroutine退出有可能来不及执行handle的打印，这里是context被cancel之后，所有select会同时收到消息并取消。
 
+
+我们使用了两个api
+```
+context.Background()
+context.WithTimeout()
+```
+
+context.Background() 一般用来创建 root(根) 上下文，context.WithTimeout()通个root上下文创建了一个具有超时功能的子上下文，即时间到了能从Done()方法读取取消信号，如果我们想中途手动取消我们可以手动调用context.WithTimeout()返回的第二个参数方法。如果不想要超时的上下文只想要可以手动关闭的上下文则可以通过context.WithCancel(context.Background()) 来创建。
+
+现在，我们通过上面的例子知道了context的第一个作用，也是非常重要的作用，即取消信号以及处理请求的截止日期，上面说了除此之外还能在不同 Goroutine 之间同步请求特定数据。
+demo
+
+```go
+root := context.Background()
+c := context.WithValue(root,"k1",152)
+c1 := context.WithValue(c,"k2","哈哈哈")
+c2 := context.WithValue(c1,"k3",1.25)
+c3 := context.WithValue(c2,"k4",1)
+fmt.Println(c3.Value("k3"))
+```
+···
+输出1.25 
+
+在日常使用中，c1,c2,c3可能传到每一个函数或者Goroutine中，子 contex 能获取每个链上父 contex 的值。
+
+最后看看各种都有的情况。
+
+```go
+ctx1 := context.Background()
+ctx2, c1 := context.WithCancel(ctx1)
+ctx3, c2 := context.WithTimeout(ctx2, time.Second*5)
+ctx4, c3 := context.WithTimeout(ctx3, time.Second*3)
+ctx5, c4 := context.WithTimeout(ctx3, time.Second*6)
+ctx6 := context.WithValue(ctx5, "key", 123)
+```
+在这段代码中，如果ctx2被关闭，那么通过ctx2创建的子contex也会被关闭，ctx2的父contex则不会被影响。
+
+
+某个contex被关闭主要是由下面事件触发的
+
+- 截止时间到了
+- cancel 函数被调用
+- parent 的 Done 被 close
