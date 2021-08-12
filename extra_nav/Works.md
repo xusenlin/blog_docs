@@ -19,6 +19,7 @@
 * [ElementUIAdmin](https://github.com/xusenlin/ElementUIAdmin2) --- 一个后台单页应用离不开合理的项目结构和一些简单的封装。
 * [VueMultiplePages](https://github.com/xusenlin/vueMultiplePages)  --- 长期实践的一个移动端多页面脚手架。
 * [imgo](https://github.com/xusenlin/imgo)  --- 基于像素对比的图片内容的查找替换工具
+* [office-utils](https://github.com/xusenlin/office-utils)  --- 一个使用服务端生成表格的工具
 
 ### 其他相关
 
