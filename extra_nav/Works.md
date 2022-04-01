@@ -7,9 +7,7 @@
 
 
 
-### 编程相关
-
-
+### 编程
 
 - [Cdp-Ui](https://github.com/xusenlin/cdp-ui) ---一个跨平台的本地软件，通过构建一些子任务来控制浏览器做任何事情:)
 - [汉字之美](https://hz.xusenlin.com) ---基于 go 语言开发的公益网站，包含了大量的中国古代诗歌。
@@ -21,7 +19,7 @@
 * [imgo](https://github.com/xusenlin/imgo)  --- 基于像素对比的图片内容的查找替换工具
 * [office-utils](https://github.com/xusenlin/office-utils)  --- 一个使用服务端生成表格的工具
 
-### 其他相关
+### 影视后期
 
 * 《[Ori And The Blind Forest](https://www.bilibili.com/video/BV1Nt4y127Ce/)》 ----剪辑。
 
@@ -33,3 +31,6 @@
 
 * 《[剑伤歌曲 粒子](http://v.youku.com/v_show/id_XNzU3MDQxMDky.html?from=y1.7-1.2)》 ----用歌曲驱动粒子跳动。
 
+### 摄影
+
+![](./images/photography/初春.jpg)
