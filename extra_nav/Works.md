@@ -33,4 +33,4 @@
 
 ### 摄影
 
-![](./assets/photography/初春.jpg)
+待开发
