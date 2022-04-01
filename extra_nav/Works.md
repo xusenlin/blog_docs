@@ -33,4 +33,4 @@
 
 ### 摄影
 
-![](./images/photography/初春.jpg)
+![](./photography/初春.jpg)
