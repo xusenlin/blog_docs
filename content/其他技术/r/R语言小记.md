@@ -101,3 +101,5 @@ function(threshold, data) {
   ...
 }
 ```
+
+最后，R 的绘图能力真的很强，包也超级多。
