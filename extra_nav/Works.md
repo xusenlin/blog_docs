@@ -30,7 +30,3 @@
 * 《[船宣传视频](http://v.youku.com/v_show/id_XMTQyMzQzNTA2NA==.html)》------公司的宣传视频。
 
 * 《[剑伤歌曲 粒子](http://v.youku.com/v_show/id_XNzU3MDQxMDky.html?from=y1.7-1.2)》 ----用歌曲驱动粒子跳动。
-
-### 摄影
-
-待开发
