@@ -9,6 +9,8 @@
 
 ### 编程
 
+- [git-helper](https://github.com/xusenlin/git-helper) ---一个跨平台的本地软件，用来管理 gi t仓库、分支、tag等。
+
 - [Cdp-Ui](https://github.com/xusenlin/cdp-ui) ---一个跨平台的本地软件，通过构建一些子任务来控制浏览器做任何事情:)
 - [汉字之美](https://hz.xusenlin.com) ---基于 go 语言开发的公益网站，包含了大量的中国古代诗歌。
 
