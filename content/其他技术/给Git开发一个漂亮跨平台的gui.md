@@ -7,6 +7,10 @@
 
 
 
+
+
+
+
 ## 工具
 
 可以通过 brew 安装 mac 下常用的 watch 和 tree 命令行工具，tree 可以通过字符的形式展示一个目录，watch 可以实时刷新对应的命令。
@@ -103,7 +107,7 @@ git标签分类 一种轻量级标签直接指向一个Commit类型的对象,一
 
 比如坑：
 
-- 如果分支和标签名字是test时，使用格式化字符串```%(refname:short)```居然是错的，给我输出了 tags/Test 和 heads/test 
+- 如果分支和标签名字是test时，使用格式化字符串```%(refname:short)```居然是错的，给我输出了 tags/Test 和 heads/test，后面ChatGPT告诉我可以使用```%(refname:strip=2)```,还真的管用。
 - 如果用户提交的message里面含有```"```字符时，使用```--format='{"name":"%(refname:short)","refName":"%(refname)","type":"%(objecttype)","message":"%(subject)","hash":"%(objectname)","time":"%(creatordate:relative)"},'``` 会导致解析失败,后面自己设置字符串模版来解析了，就没有使用json了。
 
 当然也有一些有意思的地方，比如预合并：
