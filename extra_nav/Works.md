@@ -9,17 +9,18 @@
 
 ### 编程
 
+- [terminalBot](https://github.com/xusenlin/terminal-bot) --- 将 chatGPT 接入终端使用，可以在ide和任何终端快速提问问题，支持上下文对话。
+
 - [git-helper](https://github.com/xusenlin/git-helper) ---一个跨平台的本地软件，用来管理 gi t仓库、分支、tag等。
 
 - [Cdp-Ui](https://github.com/xusenlin/cdp-ui) ---一个跨平台的本地软件，通过构建一些子任务来控制浏览器做任何事情:)
 - [汉字之美](https://hz.xusenlin.com) ---基于 go 语言开发的公益网站，包含了大量的中国古代诗歌。
-
-* [ForestBlog](https://github.com/xusenlin/ForestBlog) ---基于 go 语言开发的，无第三方依赖的，用来展示 markdown 文档的博客。
-* [MareWood](https://github.com/xusenlin/MareWood) --- MareWood 是一个轻量级的前端部署工具，使用了 GOLANG、GIN、GORM、SQLITE、JWT、REACT、MATERIAL-UI 开发。
-* [ElementUIAdmin](https://github.com/xusenlin/ElementUIAdmin2) --- 一个后台单页应用离不开合理的项目结构和一些简单的封装。
-* [VueMultiplePages](https://github.com/xusenlin/vueMultiplePages)  --- 长期实践的一个移动端多页面脚手架。
-* [imgo](https://github.com/xusenlin/imgo)  --- 基于像素对比的图片内容的查找替换工具
-* [office-utils](https://github.com/xusenlin/office-utils)  --- 一个使用服务端生成表格的工具
+- [ForestBlog](https://github.com/xusenlin/ForestBlog) ---基于 go 语言开发的，无第三方依赖的，用来展示 markdown 文档的博客。
+- [MareWood](https://github.com/xusenlin/MareWood) --- MareWood 是一个轻量级的前端部署工具，使用了 GOLANG、GIN、GORM、SQLITE、JWT、REACT、MATERIAL-UI 开发。
+- [ElementUIAdmin](https://github.com/xusenlin/ElementUIAdmin2) --- 一个后台单页应用离不开合理的项目结构和一些简单的封装。
+- [VueMultiplePages](https://github.com/xusenlin/vueMultiplePages)  --- 长期实践的一个移动端多页面脚手架。
+- [imgo](https://github.com/xusenlin/imgo)  --- 基于像素对比的图片内容的查找替换工具
+- [office-utils](https://github.com/xusenlin/office-utils)  --- 一个使用服务端生成表格的工具
 
 ### 影视后期
 
