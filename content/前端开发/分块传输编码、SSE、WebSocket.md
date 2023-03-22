@@ -163,9 +163,15 @@ WebSocket 在网页实时通信、在线游戏、实时监控等领域有着广�
 
 ## 服务端示例
 
-升级协议
+使用```github.com/gorilla/websocket```升级协议
 
 ```go
+var upGrader = websocket.Upgrader{
+	CheckOrigin: func(r *http.Request) bool {
+		return true
+	},
+}
+
 //gin 路由方法
 func WebsocketMsg(c *gin.Context) {
 	ws, err := upGrader.Upgrade(c.Writer, c.Request, nil)
