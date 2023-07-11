@@ -175,6 +175,21 @@ for node in resp.source_nodes:
 
 ## ChatGLM2-6b
 
+安装
+
+```
+git clone https://github.com/THUDM/ChatGLM2-6B
+cd ChatGLM2-6B
+```
+
+然后使用 pip 安装依赖：
+
+```
+pip install -r requirements.txt
+```
+
+其中 `transformers` 库版本推荐为 `4.30.2`，`torch` 推荐使用 2.0 及以上的版本，以获得最佳的推理性能。
+
 
 
 在使用ChatGLM2-6b时，开源代码提供了 cli_demo.py 可以简单的在终端使用对话，但是如果你是win用户的话，需要安装pyreadline来代替readline包，修改导入为 `import pyreadline as readline`
