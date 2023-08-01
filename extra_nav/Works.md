@@ -10,6 +10,7 @@
 ### 编程
 
 - [terminalBot](https://github.com/xusenlin/terminal-bot) --- 将 chatGPT 接入终端使用，可以在ide和任何终端快速提问问题，支持上下文对话。
+- [photoAlbum](https://github.com/xusenlin/photo-album) --- 一款针对摄影师的在线web相册，通过目录生成在线相册
 - [chatGPT](https://github.com/xusenlin/chatGPT ) --- 使用SSE（Server-SentEvents）技术的chatGPT,因此回答问题非常的快，openai返回的每一个字符都会实时推送到浏览器,并且支持代码高亮，只包含一个前端html和一个go后端代码。
 - [git-helper](https://github.com/xusenlin/git-helper) ---一个跨平台的本地软件，用来管理 gi t仓库、分支、tag等。
 - [Cdp-Ui](https://github.com/xusenlin/cdp-ui) ---一个跨平台的本地软件，通过构建一些子任务来控制浏览器做任何事情:)
