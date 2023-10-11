@@ -199,7 +199,7 @@ pip install -r requirements.txt
 
 ## 20231010补充
 
-对于使用 golfing ，有一个使用 rust 并开源的向量数据库 qdrant ，它提供了 Golang Sdk
+对于使用 golang，有一个使用 rust 并开源的向量数据库 qdrant ，它提供了 Golang Sdk
 
 https://github.com/qdrant/qdrant
 
