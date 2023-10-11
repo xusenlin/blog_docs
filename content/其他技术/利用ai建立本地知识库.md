@@ -194,3 +194,23 @@ pip install -r requirements.txt
 
 
 在使用ChatGLM2-6b时，开源代码提供了 cli_demo.py 可以简单的在终端使用对话，但是如果你是win用户的话，需要安装pyreadline来代替readline包，修改导入为 `import pyreadline as readline`
+
+
+
+## 20231010补充
+
+对于使用 golfing ，有一个使用 rust 并开源的向量数据库 qdrant ，它提供了 Golang Sdk
+
+https://github.com/qdrant/qdrant
+
+https://github.com/qdrant/go-client
+
+当然也有其他客户端SDK ，比如 typescript,python等。
+
+使用 docker 安装下
+
+```shell
+docker run -p 6333:6333 qdrant/qdrant
+```
+
+ 保存向量数据的时候，除了 Vector Data 之外我们还要保存其他一些额外信息（问答、数据ID、引用地址等），这样后续通过向量搜索出来的内容可以快速定位相关内容。
