@@ -10,6 +10,7 @@
 ### 编程
 
 - [terminalBot](https://github.com/xusenlin/terminal-bot) --- 将 chatGPT 接入终端使用，可以在ide和任何终端快速提问问题，支持上下文对话。
+- [gin-pagination](https://github.com/xusenlin/gin-pagination) --- gin 库的一个泛型分页包，安装之后配合 gin 和 gorm 可以快速和灵活分页。
 - [photoAlbum](https://github.com/xusenlin/photo-album) --- 一款针对摄影师的在线web相册，通过目录生成在线相册
 - [chatGPT](https://github.com/xusenlin/chatGPT ) --- 使用SSE（Server-SentEvents）技术的chatGPT,因此回答问题非常的快，openai返回的每一个字符都会实时推送到浏览器,并且支持代码高亮，只包含一个前端html和一个go后端代码。
 - [git-helper](https://github.com/xusenlin/git-helper) ---一个跨平台的本地软件，用来管理 gi t仓库、分支、tag等。
