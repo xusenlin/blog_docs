@@ -2,7 +2,7 @@
 {
   "date": "2024.03.25 20:00",
   "tags": ["GRPC","微服务"],
-  "description":"对于我来说，我更喜欢GRPC的点是：1.得益于Protobuf，在不同语言之间使用强类型定义数据结构的统一。2.通过 Protobuf文件，不仅可以生成主流语言的接口相关代码还可以通过第三方工具，例如buf生成各种语言的类型定义，也就是前端可以直接拿到 typescript文件。3.传输数据流byte,也就是多个服务之间可以相互推文件流和其他数据流。"
+  "description":"对于我来说，我更喜欢GRPC的点是：1.得益于Protobuf，在不同语言之间使用强类型定义数据结构的统一。2.通过 Protobuf文件，不仅可以生成主流语言的接口相关代码还可以通过第三方工具，例如buf生成各种语言的类型定义，也就是前端可以直接拿到 typescript文件。3.传输数据流byte,也就是多个服务之间可以相互推文件流和其他数据流。当然，protobuf 是一种通用的数据序列化框架，不止GRPC,RPCX也能使用这种数据序列化框架。"
 }
 ```
 
@@ -39,23 +39,23 @@ gRPC主要有4种请求和响应模式，分别是简单模式(Simple RPC)、服
 - 客户端流式（Client-side streaming RPC）：与服务端数据流模式相反，这次是客户端源源不断的向服务端发送数据流，而在发送结束后，由服务端返回一个响应。（客户端发送流）
 - 双向流式（Bidirectional streaming RPC）：双方使用读写流去发送一个消息序列，两个流独立操作，双方可以同时发送和同时接收。
 
-## 安装
+## Protobuf
+
+GRPC 通常情况下使用 Protocol Buffers（protobuf）作为默认的序列化框架，这使得 gRPC 在传输数据时更高效。Protocol Buffers 是一种轻量、高效且语言无关的数据序列化框架。
 
 需要安装proto核心工具 `https://github.com/protocolbuffers/protobuf/releases`。在安装go相关的插件：`go install google.golang.org/protobuf/cmd/protoc-gen-go@latest`，`go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest`
 
-## 生成GO代码
+### 生成GO代码
 
 `protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative helloworld.proto`
 
-## 一般流程
+### 一般流程
 
 1. 首先定义好proto(服务的传输数据类型和方法)
 2. 通过工具生成代码(接口和相关注册函数等)
 3. 编写代码实现接口并调用相关方法启动服务
 
-##  Protobuf文件
-
-### 示例
+### protobuf文件示例
 
 ```protobuf
 syntax = "proto3";
@@ -100,3 +100,6 @@ option go_package="./;v1";
 ```
 
 备份，待续。
+
+###  Protobuf文档生成
+
