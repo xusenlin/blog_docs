@@ -61,24 +61,26 @@ syntax = "proto3";
 //name 表示生成的go文件所属的包名
 option go_package="./;v1";
 // 定义包名
-package v1;
+package helloWorld;
 
-// 定义Greeter服务
+// 一个简单的问候服务
 service Greeter {
-  // 定义SayHello方法，接受HelloRequest消息， 并返回HelloReply消息
+  // SayHello方法，接受HelloRequest消息， 并返回HelloReply消息
   rpc SayHello (HelloRequest) returns (HelloReply) {}
+  // SayHello方法，接受HelloRequest消息， 并返回HelloReply流消息
+  rpc SayHelloStream (HelloRequest) returns (stream HelloReply) {}
 }
 
-// 定义HelloRequest消息
+// 定义Request消息
 message HelloRequest {
-  // name字段
-  string name = 1;
+  string id = 1;// id字段
+  bool name = 2;// name字段
 }
 
-// 定义HelloReply消息
+// 定义Reply消息
 message HelloReply {
-  // message字段
-  string message = 1;
+  string id = 1;// message字段
+  bytes  file = 2;// file字段
 }
 ```
 
@@ -100,11 +102,9 @@ option go_package="./;v1";
 3. [golang protobuf 代码仓库 - github.com](https://github.com/golang/protobuf) go实现
 4. [Protocol Buffer 插件列表 - github.com](https://github.com/protocolbuffers/protobuf/blob/master/docs/third_party.md)
 
-### 生成代码
+### 生成Go代码
 
 需要安装proto核心工具`https://github.com/protocolbuffers/protobuf/releases`。
-
-#### Go
 
 go相关的插件：`go install google.golang.org/protobuf/cmd/protoc-gen-go@latest`，`go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest`
 
@@ -120,24 +120,20 @@ https://github.com/pseudomuto/protoc-gen-doc
 
 `protoc --doc_out=. --doc_opt=markdown,docs.md ./*/*/*.proto` 生成md文档
 
-### 字段类型对比其他语言
+## 编写GRPC服务来传文件
+
+我们就以上面的proto示例文件来编写一个服务端可以一次性响应文件或者流式响应文件的GRPC服务。当然，前面说了，GRPC支持4种通信模式，也就是说，客户端也可以一次性传输文件也可以流式传输文件，也可以一边流式传输文件一边响应流失文件，反正非常灵活。
+
+### 1.生成go代码
+
+使用命令`protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative helloworld.proto`可以得到两个代码文件
+
+1. helloworld.pb.go
+2. helloworld_grpc.pb.go
+
+### 2.编写服务端
 
 
 
-| .proto Type | C++    | Java       | Python      | Go      | C#         | PHP            | Ruby                           |
-| ----------- | ------ | ---------- | ----------- | ------- | ---------- | -------------- | ------------------------------ |
-| double      | double | double     | float       | float64 | double     | float          | Float                          |
-| float       | float  | float      | float       | float32 | float      | float          | Float                          |
-| int32       | int32  | int        | int         | int32   | int        | integer        | Bignum or Fixnum (as required) |
-| int64       | int64  | long       | int/long    | int64   | long       | integer/string | Bignum                         |
-| uint32      | uint32 | int        | int/long    | uint32  | uint       | integer        | Bignum or Fixnum (as required) |
-| uint64      | uint64 | long       | int/long    | uint64  | ulong      | integer/string | Bignum or Fixnum (as required) |
-| sint32      | int32  | int        | int         | int32   | int        | integer        | Bignum or Fixnum (as required) |
-| sint64      | int64  | long       | int/long    | int64   | long       | integer/string | Bignum                         |
-| fixed32     | uint32 | int        | int         | uint32  | uint       | integer        | Bignum or Fixnum (as required) |
-| fixed64     | uint64 | long       | int/long    | uint64  | ulong      | integer/string | Bignum                         |
-| sfixed32    | int32  | int        | int         | int32   | int        | integer        | Bignum or Fixnum (as required) |
-| sfixed64    | int64  | long       | int/long    | int64   | long       | integer/string | Bignum                         |
-| bool        | bool   | boolean    | boolean     | bool    | bool       | boolean        | TrueClass/FalseClass           |
-| string      | string | String     | str/unicode | string  | string     | string         | String (UTF-8)                 |
-| bytes       | string | ByteString | str         | []byte  | ByteString | string         | String (ASCII-8BIT)            |
+
+
