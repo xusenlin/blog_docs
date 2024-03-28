@@ -41,6 +41,8 @@ gRPC主要有4种请求和响应模式，分别是简单模式(Simple RPC)、服
 - 客户端流式（Client-side streaming RPC）：与服务端数据流模式相反，这次是客户端源源不断的向服务端发送数据流，而在发送结束后，由服务端返回一个响应。（客户端发送流）
 - 双向流式（Bidirectional streaming RPC）：双方使用读写流去发送一个消息序列，两个流独立操作，双方可以同时发送和同时接收。
 
+前面3种模式都是客户端发起的响应，第4种才是服务端主动推送？？？？
+
 ## 开发GRPC一般流程
 
 1. 首先定义好proto(服务的传输数据类型和方法)
@@ -74,13 +76,14 @@ service Greeter {
 // 定义Request消息
 message HelloRequest {
   string id = 1;// id字段
-  bool name = 2;// name字段
+  string name = 2;// name字段
 }
 
 // 定义Reply消息
 message HelloReply {
   string id = 1;// message字段
-  bytes  file = 2;// file字段
+  string fileType = 2;// fileType字段
+  bytes  file = 3;// file字段
 }
 ```
 
@@ -120,7 +123,7 @@ https://github.com/pseudomuto/protoc-gen-doc
 
 `protoc --doc_out=. --doc_opt=markdown,docs.md ./*/*/*.proto` 生成md文档
 
-## 编写GRPC服务来传文件
+## 编写GRPC服务来传文件或者消息
 
 我们就以上面的proto示例文件来编写一个服务端可以一次性响应文件或者流式响应文件的GRPC服务。当然，前面说了，GRPC支持4种通信模式，也就是说，客户端也可以一次性传输文件也可以流式传输文件，也可以一边流式传输文件一边响应流失文件，反正非常灵活。
 
@@ -133,7 +136,148 @@ https://github.com/pseudomuto/protoc-gen-doc
 
 ### 2.编写服务端
 
+```go
+package main
 
+import (
+	"context"
+	helloV1 "grpc/api/hello/v1"
+	"io"
+	"log"
+	"net"
+	"os"
+	"time"
+
+	"google.golang.org/grpc"
+)
+
+type GreeterServer struct {
+	helloV1.UnimplementedGreeterServer
+}
+
+func (s *GreeterServer) SayHello(ctx context.Context, req *helloV1.HelloRequest) (*helloV1.HelloReply, error) {
+	file, err := os.ReadFile("./1.zip")
+	if err != nil {
+		return nil, err
+	}
+	return &helloV1.HelloReply{
+		Id:       req.GetId() + req.GetName(),
+		FileType: "zip",
+		File:     file,
+	}, nil
+}
+
+func (s *GreeterServer) SayHelloStream(req *helloV1.HelloRequest, reply helloV1.Greeter_SayHelloStreamServer) error {
+	file, err := os.Open("./1.zip")
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	buf := make([]byte, 100) //1k 1024
+	for {
+		n, err := file.Read(buf)
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return err
+		}
+		err = reply.Send(&helloV1.HelloReply{
+			Id:       req.GetId() + req.GetName(),
+			FileType: "zip",
+			File:     buf[:n],
+		})
+		if err != nil {
+			return err
+		}
+		time.Sleep(time.Second)
+	}
+	return nil
+}
+
+func main() {
+	lis, err := net.Listen("tcp", ":50051")
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+
+	s := grpc.NewServer()
+	helloV1.RegisterGreeterServer(s, &GreeterServer{})
+
+	log.Println("Starting gRPC server on :50051")
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf("failed to serve: %v", err)
+	}
+}
+
+
+```
+
+### 3.编写客户端代码
+
+```go
+package main
+
+import (
+	"context"
+	"flag"
+	"fmt"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
+	helloV1 "grpc/api/hello/v1"
+	"log"
+	"os"
+)
+
+func main() {
+	conn, err := grpc.Dial("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer conn.Close()
+	c := helloV1.NewGreeterClient(conn)
+
+	go func() {
+		req, err := c.SayHello(context.Background(), &helloV1.HelloRequest{Name: "请求SayHello", Id: "2312"})
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		err = os.WriteFile("SayHello."+req.FileType, req.GetFile(), 0644)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+	}()
+	stream, err := c.SayHelloStream(context.Background(), &helloV1.HelloRequest{Name: "请求SayHelloStream", Id: "123123"})
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	var fileData []byte
+	fileName := ""
+	for {
+		r, err := stream.Recv()
+		if err != nil {
+			fmt.Println(err)
+			break
+		}
+		fileName = "SayHelloStream." + r.FileType
+		fileData = append(fileData, r.GetFile()...)
+	}
+	err = os.WriteFile(fileName, fileData, 0644)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+}
+
+```
+
+自此，我们已经可以使用GRPC自由的收发消息或文件了。
+
+目前来看，4种方案都需要客户端发起，但是有流式，可以客户端发起一个流式请求，请求一旦建立，我们就可以通过chan随时给客户端发送文件或者消息了。
 
 
 
