@@ -279,5 +279,43 @@ func main() {
 
 目前来看，4种方案都需要客户端发起，但是有流式，可以客户端发起一个流式请求，请求一旦建立，我们就可以通过chan随时给客户端发送文件或者消息了。
 
+## Grpc 调试工具
 
+`go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest`
 
+如果服务器支持反射Api的话可以使用`grpcurl -plaintext 127.0.0.1:50051 list` 列出服务名字，如果不支持的话也可以通过proto源文件来获取。
+
+获取服务名：`grpcurl  -proto helloworld.proto list `
+
+获取服务下的所有方法：`grpcurl  -proto helloworld.proto list helloWorld.Greeter`
+
+## GRPC反射API
+
+在gRPC中，反射API是一种特殊的API，允许客户端查询 gRPC 服务器的服务定义和其方法。通过反射API，客户端可以动态地发现服务器上可用的服务和方法，而无需显式地了解其定义。这对于诸如调试工具、自动生成代码以及服务发现等场景非常有用。
+
+```go
+func main() {
+	lis, err := net.Listen("tcp", ":50051")
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+
+	s := grpc.NewServer()
+	helloV1.RegisterGreeterServer(s, &GreeterServer{})
+  //支持反射api
+	reflection.Register(s)
+
+	log.Println("Starting gRPC server on :50051")
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf("failed to serve: %v", err)
+	}
+}
+```
+
+现在，我们就可以使用调试工具来查询服务名字和方法了
+
+列出所有服务名：`grpcurl -plaintext 127.0.0.1:50051 list `
+
+列出某个服务的方法：`grpcurl -plaintext 127.0.0.1:50051 list helloWorld.Greeter`
+
+调用某个服务方法：` grpcurl -plaintext localhost:50051 helloWorld.Greeter/SayHello`
