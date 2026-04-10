@@ -1,6 +1,6 @@
 ```json
 {
-  "date": "2026.03.25",
+  "date": "2026.03.25 21:51",
   "tags": ["Playwright", "ffmpeg", "Next.js", "视频导出", "自动化"],
   "description": "在 OpenMAIC 项目中实现课程视频导出功能，使用 Playwright 截图 + ffmpeg 合成视频，支持 videoMode 自动生成纯幻灯片模式课程。"
 }
